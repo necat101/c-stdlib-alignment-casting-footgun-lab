@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+c_harness_bin
+*.o
+*.so
+*.a
+/out/
+/tmp/
