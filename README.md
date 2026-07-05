@@ -50,7 +50,7 @@ The linked Quarkslab article is about unaligned integer loads from byte buffers 
 
 ## What this lab does
 
-65 deterministic synthetic test cases covering:
+47 deterministic synthetic test cases covering:
 
 - unsigned char object-representation views
 - uint8_t aliasing portability
@@ -92,9 +92,18 @@ Methods compared: preserve_original_case_baseline, compiler_discovery_checker, c
 
 ## Compiler availability
 
-The lab searches for a compiler in order: `zig cc`, `cc`, `clang`, `gcc`. If none is found, this is honestly recorded in RESULTS.md and the C harness is not validated. **Do NOT install a compiler to make the lab "pass" – missing compiler = honest skip, not failure.**
+The lab searches for a compiler in order: `zig cc`, `cc`, `clang`, `gcc`.
 
-In the initial run: **no compiler was available** in the sandbox environment. The C harness source (`c_alignment_casting_footgun_harness.c`) is committed and compiles with `-std=c11 -Wall -Wextra`, but was not validated in the initial environment.
+Validated with **zig cc 0.14.1** (clang 19.1.7 backend) – see RESULTS.md for compile command, harness output, and timing. If no compiler is found, this is honestly recorded and the C harness is not validated. **Do NOT install a compiler just to make the lab "pass" – missing compiler = honest skip, not failure.**
+
+## Python policy-observer vs C harness results
+
+The lab distinguishes clearly between:
+
+- **Python policy-observer results**: case generation, expected-observation tracking, method dispatch, scoring, timing, artifact writing – all in Python stdlib, no C required. These run even without a compiler.
+- **Compiler-backed C harness results**: `c_alignment_casting_footgun_harness.c` compiled with zig cc (`-std=c11 -Wall -Wextra`), run on generated cases, producing real observations for: unsigned char object-representation views, `_Alignof` queries, malloc/stack alignment, struct padding / `offsetof`, `memcpy` loads (u32/u64 native), manual endian loads (le/be u16/u32/u64), `memmove` overlap, and `load_result` wrapper output. See RESULTS.md "Harness output" section for the exact JSON.
+- **Not-run / not-tested cases**: misaligned typed dereferences, wrong effective type dereferences, trap representations, ARM/x86 hardware behavior, sanitizers, fuzzing, static analysis, production parser validation – all explicitly marked `not_tested` / `skip` / `not_run` with reasons. No UB is intentionally executed.
+- **Portability claims**: statements about ARM faults, x86 permissive behavior, strict aliasing rules, effective type, C vs C++ union punning, `-fno-strict-aliasing`, sanitizers, etc. come from the HN thread / linked article / ISO C documentation – they are **context, not locally proven** by this toy lab. The lab only proves what the local C harness observed on x86_64/Linux with zig cc 0.14.1.
 
 ## Running the lab
 

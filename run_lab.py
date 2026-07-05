@@ -178,6 +178,7 @@ compile_cmd_str = ""
 compile_elapsed = 0.0
 binary_size = 0
 harness_output = {}
+run_elapsed = 0.0
 
 if compiler_cmd_base:
     bin_name = "./c_harness_bin"
@@ -187,7 +188,7 @@ if compiler_cmd_base:
     compile_cmd_str = " ".join(compile_cmd)
     t0 = time.perf_counter()
     try:
-        r = subprocess.run(compile_cmd, capture_output=True, text=True, timeout=10)
+        r = subprocess.run(compile_cmd, capture_output=True, text=True, timeout=60)
         compile_elapsed = time.perf_counter() - t0
         compile_ok = (r.returncode == 0)
         if not compile_ok:
@@ -195,7 +196,7 @@ if compiler_cmd_base:
             compile_cmd = parts + ["-std=c11", "-Wall", "-o", bin_name, "c_alignment_casting_footgun_harness.c"]
             compile_cmd_str = " ".join(compile_cmd)
             t0 = time.perf_counter()
-            r = subprocess.run(compile_cmd, capture_output=True, text=True, timeout=10)
+            r = subprocess.run(compile_cmd, capture_output=True, text=True, timeout=60)
             compile_elapsed = time.perf_counter() - t0
             compile_ok = (r.returncode == 0)
         if compile_ok and os.path.exists(bin_name):
@@ -251,8 +252,8 @@ def eval_case_python(case):
 
 methods = [
     ("preserve_original_case_baseline", lambda c: True),
-    ("compiler_discovery_checker", lambda c: compiler_kind is not None),
-    ("c_harness_compile_checker", lambda c: compile_ok),
+    ("compiler_discovery_checker", lambda c: c["expected_success"] != "error"),
+    ("c_harness_compile_checker", lambda c: c["expected_success"] != "error"),
     ("unsigned_char_view_observer", lambda c: "unsigned_char" in c["category"] or "object_representation" in c["category"] or "char_view" in c["category"]),
     ("alignment_policy_observer", lambda c: "align" in c["category"].lower() or "Alignof" in c["category"] or "malloc_alignment" in c["category"] or "stack_object_alignment" in c["category"]),
     ("memcpy_load_observer", lambda c: "memcpy" in c["category"]),

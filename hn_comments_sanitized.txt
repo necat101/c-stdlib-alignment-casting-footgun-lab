@@ -1,0 +1,96 @@
+# HN Comments Sanitized — c-stdlib-alignment-casting-footgun-lab
+
+Source: Hacker News API — https://news.ycombinator.com/item?id=38472174
+Thread: "Unaligned accesses in C/C++: what, why and solutions to do it properly"
+Accessed: 2026-07-05 via Hacker News API CLI (python3 ./hackernews get-item)
+Comment count: 54 descendants
+
+This file contains sanitized excerpts from the HN thread, for audit purposes.
+Full sentiment analysis in hn_thread_evidence.md / README.md.
+
+---
+
+Comment 38473755 — JonChesterfield
+> I expected this to be an aliasing violation and was not disappointed. Dereferencing a uint8_t through a uint64_t is undefined behaviour whatever the target architecture is.
+> That it works for the author on x64 just means the compiler didn't break it this time around.
+> an 8 byte aligned uint8_t also can't be dereferenced via a uint64_t. It isn't UB because the alignment is wrong, it's UB by definition and also the alignment might be wrong.
+> This is a woeful state of affairs propagated by an ill founded and widespread confidence that the C and C++ standards probably aren't as hostile to type aliasing as they actually are.
+
+Comment 38473820 — gpderetta (reply to 38473755)
+> If uint8_t is a char type (and invariably it is), then it is fully defined.
+> Similarly, it is perfectly safe to cast a correctly aligned uint8_t* to uint64_t* and dereference it as long as you originally stored an uint64_t into it (or the compiler can't prove you didn't).
+> Remember aliasing UB is always on derefencing with the wrong dynamic type, not on casting pointers.
+
+Comment 38474417 — pkkm
+> while I get the historical reasons for strict aliasing, I wish it hadn't been created. Just make -fno-strict-aliasing the default and normalize the abundant use of restrict
+
+Comment 38473899 — AnimalMuppet
+> if you're playing this kind of game, the compiler cannot type-check what you're doing (or sanity-check it in any other way). You're outside the area covered by the standard. You're coding without a net.
+> But C and C++ are explicitly intended for this kind of situation.
+
+Comment 38473966 — derf_
+> SIMD intrinsics alignment footgun: _mm_cvtepi8_epi32() / PMOVSXBD
+> Tools like UBSan will also (correctly) complain about it.
+
+Comment 38474448 — mlochbaum
+> Linux kernel packed struct unaligned() macro
+
+Comment 38476409 — JonChesterfield
+> Uses of pointers to members of packed structs are prone to being miscompiled by GCC
+
+Comment 38476270 — el_pollo_diablo
+> Type punning through a union is explicitly supported by the C standard
+> GCC appears to compile this function to a plain unaligned load at optimization level 2, when supported, e.g. on arm64
+
+Comment 38474076 — amluto
+> The 'multiple loads' solution is IMO correct. It does precisely what it looks like it does, it doesn't rely on any assumptions about how integers are represented, and, IMO best of all, it completely gets rid of the 'native endian' crap that has plagued C programs for decades.
+
+Comment 38474243 — wyldfire
+> -fsanitize=undefined helps uncover this kind of UB and more. While you're there, pile on with ASan: -fsanitize=address,undefined
+
+Comment 38473891 — tralarpa
+> With gcc, the option -Wcast-align=strict is useful.
+
+Comment 38474926 — dataflow
+> Q: How do you do atomic unaligned accesses from C++?
+
+Comment 38474684 — knorker
+> The right way to cast stuff in memory since C++20 is std::bit_cast, right?
+
+Comment 38474101 — Ono-Sendai
+> memcpy was quite slow in my tests however, it was ~twice as fast to check the alignment and load as floats
+
+Comment 38475034 — epx
+> Had a problem like that while porting an IEEE 11073 parser library to Emscripten. Funnily enough, the code worked happily in x86 and ARM environments, but failed in Emscripten.
+
+Comment 38475591 — rwmj
+> Stack alignment crash: calling from assembly back to C without honoring 16-byte stack alignment
+> The stack was only unaligned some of the time and the crash happened very distant from the wrapper
+
+Comment 38476929 — xscott
+> I think we're getting to the point where C++ users should define two classes: Integer { // uses unsigned integers … }; Pointer { // uses void* and memcpy for all loads or stores }; … Then we can safely ignore all the undefined behavior which has been so eagerly embraced by the compiler writers
+
+---
+
+Themes extracted (see hn_thread_evidence.md / README.md for full analysis):
+
+1. Strict aliasing / effective type violations (not just alignment)
+2. Cast vs dereference distinction
+3. uint8_t / unsigned char aliasing rules, directionality
+4. memcpy as portable byte-copy
+5. Manual byte-shift loads, endian policy
+6. x86 permissive behavior ≠ portable C
+7. Packed structs / unions – with caveats
+8. -fno-strict-aliasing, restrict
+9. Sanitizers, -Wcast-align as diagnostics not proof
+10. C vs C++ rules (bit_cast, union punning)
+11. Compiler optimizations / TBAA
+12. SIMD intrinsics alignment footguns
+13. Stack alignment crashes
+14. Atomic unaligned accesses
+15. "Coding without a net"
+16. Emscripten / cross-platform surprises
+17. memcpy performance concerns
+
+Raw HN API responses are available in session tool logs.
+Key comment IDs: 38473755, 38473820, 38474417, 38473899, 38473966, 38474448, 38476409, 38476270, 38474076, 38474243, 38473891, 38475043, 38474926, 38474684, 38474101, 38475034, 38475591, 38475582, 38476929.

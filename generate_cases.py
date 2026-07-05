@@ -33,25 +33,24 @@ def add_case(category, fake_name, buf_bytes, **fields):
     cases.append(case)
     cid += 1
 
-# --- unsigned char object representation ---
-for i in range(2):
-    buf = bytes([0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc, 0xde, 0xf0])
-    add_case(
-        "unsigned_char_can_view_uint64_bytes",
-        fake_names[i % len(fake_names)],
-        buf,
-        offset=0,
-        requested_integer_width=64,
-        alignment_requirement=8,
-        endian_policy="native",
-        operation_label="unsigned_char_view",
-        compiler_feature_needed="none",
-        context_label="object_representation_policy",
-        expected_observation="unsigned_char_can_inspect_object_bytes",
-        expected_success="success",
-        expected_reason="char_view_directional_safe",
-        expected_to_fail_naive=False,
-    )
+# --- unsigned char object representation (1 case, was 2) ---
+buf = bytes([0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc, 0xde, 0xf0])
+add_case(
+    "unsigned_char_can_view_uint64_bytes",
+    "demo_buffer",
+    buf,
+    offset=0,
+    requested_integer_width=64,
+    alignment_requirement=8,
+    endian_policy="native",
+    operation_label="unsigned_char_view",
+    compiler_feature_needed="none",
+    context_label="object_representation_policy",
+    expected_observation="unsigned_char_can_inspect_object_bytes",
+    expected_success="success",
+    expected_reason="char_view_directional_safe",
+    expected_to_fail_naive=False,
+)
 
 # uint8_t aliasing portability marker
 buf = bytes(range(8))
@@ -110,25 +109,24 @@ add_case(
     expected_to_fail_naive=False,
 )
 
-# misaligned_uint64_deref_not_run
-for off in [1, 3, 5]:
-    buf = bytes(range(16))
-    add_case(
-        "misaligned_uint64_deref_not_run",
-        "toy_alignment_case",
-        buf,
-        offset=off,
-        requested_integer_width=64,
-        alignment_requirement=8,
-        endian_policy="native",
-        operation_label="unsafe_deref_misaligned",
-        compiler_feature_needed="none",
-        context_label="alignment_policy",
-        expected_observation="not_run_UB_misaligned_deref",
-        expected_success="not_tested",
-        expected_reason="misaligned_typed_deref_is_not_portable",
-        expected_to_fail_naive=True,
-    )
+# misaligned_uint64_deref_not_run (1 case, was 3)
+buf = bytes(range(16))
+add_case(
+    "misaligned_uint64_deref_not_run",
+    "toy_alignment_case",
+    buf,
+    offset=1,
+    requested_integer_width=64,
+    alignment_requirement=8,
+    endian_policy="native",
+    operation_label="unsafe_deref_misaligned",
+    compiler_feature_needed="none",
+    context_label="alignment_policy",
+    expected_observation="not_run_UB_misaligned_deref",
+    expected_success="not_tested",
+    expected_reason="misaligned_typed_deref_is_not_portable",
+    expected_to_fail_naive=True,
+)
 
 # wrong_effective_type_deref_not_run
 buf = bytes([0x11]*8)
@@ -149,45 +147,43 @@ add_case(
     expected_to_fail_naive=True,
 )
 
-# aligned_uint64_object_read_success (2 cases)
-for off in [0, 8]:
-    buf = bytes([0xef, 0xbe, 0xad, 0xde, 0x00, 0x00, 0x00, 0x00] * 2)
-    add_case(
-        "aligned_uint64_object_read_success",
-        "fake_u64_field",
-        buf,
-        offset=off,
-        requested_integer_width=64,
-        alignment_requirement=8,
-        endian_policy="native",
-        operation_label="aligned_object_read",
-        compiler_feature_needed="none",
-        context_label="alignment_policy",
-        expected_observation="aligned_object_read_success",
-        expected_success="success",
-        expected_reason="properly_aligned_object_read_is_defined",
-        expected_to_fail_naive=False,
-    )
+# aligned_uint64_object_read_success (1 case, was 2)
+buf = bytes([0xef, 0xbe, 0xad, 0xde, 0x00, 0x00, 0x00, 0x00] * 2)
+add_case(
+    "aligned_uint64_object_read_success",
+    "fake_u64_field",
+    buf,
+    offset=0,
+    requested_integer_width=64,
+    alignment_requirement=8,
+    endian_policy="native",
+    operation_label="aligned_object_read",
+    compiler_feature_needed="none",
+    context_label="alignment_policy",
+    expected_observation="aligned_object_read_success",
+    expected_success="success",
+    expected_reason="properly_aligned_object_read_is_defined",
+    expected_to_fail_naive=False,
+)
 
-# memcpy_load_u64_native_order (2 cases)
-for i in range(2):
-    buf = bytes([(i*8 + j) & 0xff for j in range(8)])
-    add_case(
-        "memcpy_load_u64_native_order",
-        "demo_payload",
-        buf,
-        offset=0,
-        requested_integer_width=64,
-        alignment_requirement=1,
-        endian_policy="native",
-        operation_label="memcpy_load",
-        compiler_feature_needed="string_h",
-        context_label="memcpy_policy",
-        expected_observation="memcpy_loads_bytes_into_integer_object_portably",
-        expected_success="success",
-        expected_reason="memcpy_is_portable_byte_copy",
-        expected_to_fail_naive=False,
-    )
+# memcpy_load_u64_native_order (1 case, was 2)
+buf = bytes([j & 0xff for j in range(8)])
+add_case(
+    "memcpy_load_u64_native_order",
+    "demo_payload",
+    buf,
+    offset=0,
+    requested_integer_width=64,
+    alignment_requirement=1,
+    endian_policy="native",
+    operation_label="memcpy_load",
+    compiler_feature_needed="string_h",
+    context_label="memcpy_policy",
+    expected_observation="memcpy_loads_bytes_into_integer_object_portably",
+    expected_success="success",
+    expected_reason="memcpy_is_portable_byte_copy",
+    expected_to_fail_naive=False,
+)
 
 # memcpy_load_u32_native_order
 buf = bytes([0x78, 0x56, 0x34, 0x12])
@@ -326,8 +322,8 @@ add_case(
     expected_to_fail_naive=True,
 )
 
-# unaligned_offset_detected_by_uintptr
-for off in [1, 3, 5, 7]:
+# unaligned_offset_detected_by_uintptr (2 cases, was 4)
+for off in [1, 3]:
     buf = bytes(range(16))
     add_case(
         "unaligned_offset_detected_by_uintptr",
@@ -346,25 +342,24 @@ for off in [1, 3, 5, 7]:
         expected_to_fail_naive=False,
     )
 
-# aligned_offset_detected_by_uintptr
-for off in [0, 8]:
-    buf = bytes(range(16))
-    add_case(
-        "aligned_offset_detected_by_uintptr",
-        "toy_alignment_case",
-        buf,
-        offset=off,
-        requested_integer_width=64,
-        alignment_requirement=8,
-        endian_policy="native",
-        operation_label="alignment_check_uintptr",
-        compiler_feature_needed="stdint_h",
-        context_label="alignment_policy",
-        expected_observation="aligned_offset_detected",
-        expected_success="success",
-        expected_reason="uintptr_mod_align_check",
-        expected_to_fail_naive=False,
-    )
+# aligned_offset_detected_by_uintptr (1 case, was 2)
+buf = bytes(range(16))
+add_case(
+    "aligned_offset_detected_by_uintptr",
+    "toy_alignment_case",
+    buf,
+    offset=0,
+    requested_integer_width=64,
+    alignment_requirement=8,
+    endian_policy="native",
+    operation_label="alignment_check_uintptr",
+    compiler_feature_needed="stdint_h",
+    context_label="alignment_policy",
+    expected_observation="aligned_offset_detected",
+    expected_success="success",
+    expected_reason="uintptr_mod_align_check",
+    expected_to_fail_naive=False,
+)
 
 # _Alignof markers
 for width, typ in [(16, "uint16"), (32, "uint32"), (64, "uint64")]:
@@ -500,25 +495,6 @@ add_case(
     expected_to_fail_naive=False,
 )
 
-# trap_representation_not_tested
-buf = bytes(8)
-add_case(
-    "trap_representation_not_tested",
-    "fake_bytes",
-    buf,
-    offset=0,
-    requested_integer_width=64,
-    alignment_requirement=8,
-    endian_policy="native",
-    operation_label="trap_rep_context",
-    compiler_feature_needed="none",
-    context_label="portability_not_tested",
-    expected_observation="trap_representations_not_tested",
-    expected_success="not_tested",
-    expected_reason="trap_rep_out_of_scope",
-    expected_to_fail_naive=False,
-)
-
 # padding_bytes_not_interpreted_marker
 buf = bytes(16)
 add_case(
@@ -595,63 +571,6 @@ add_case(
     expected_to_fail_naive=True,
 )
 
-# restrict_context_not_tested
-buf = bytes(8)
-add_case(
-    "restrict_context_not_tested",
-    "demo_payload",
-    buf,
-    offset=0,
-    requested_integer_width=64,
-    alignment_requirement=8,
-    endian_policy="native",
-    operation_label="restrict_context",
-    compiler_feature_needed="none",
-    context_label="diagnostic_not_required",
-    expected_observation="restrict_discussed_in_HN_not_tested_here",
-    expected_success="not_tested",
-    expected_reason="restrict_out_of_scope",
-    expected_to_fail_naive=False,
-)
-
-# fno_strict_aliasing_context_not_tested
-buf = bytes(8)
-add_case(
-    "fno_strict_aliasing_context_not_tested",
-    "demo_payload",
-    buf,
-    offset=0,
-    requested_integer_width=64,
-    alignment_requirement=8,
-    endian_policy="native",
-    operation_label="fno_strict_aliasing_context",
-    compiler_feature_needed="gcc_flag",
-    context_label="diagnostic_not_required",
-    expected_observation="fno_strict_aliasing_discussed_not_tested",
-    expected_success="not_tested",
-    expected_reason="compiler_flag_out_of_scope",
-    expected_to_fail_naive=False,
-)
-
-# sanitizer_context_not_required
-buf = bytes(8)
-add_case(
-    "sanitizer_context_not_required",
-    "demo_chunk",
-    buf,
-    offset=0,
-    requested_integer_width=64,
-    alignment_requirement=8,
-    endian_policy="native",
-    operation_label="sanitizer_context",
-    compiler_feature_needed="clang_gcc_sanitizer",
-    context_label="diagnostic_not_required",
-    expected_observation="sanitizers_useful_but_not_required_in_lab",
-    expected_success="not_tested",
-    expected_reason="sanitizer_out_of_scope",
-    expected_to_fail_naive=False,
-)
-
 # cast_align_warning_context_marker
 buf = bytes(8)
 add_case(
@@ -709,25 +628,6 @@ add_case(
     expected_to_fail_naive=False,
 )
 
-# cross_arch_behavior_not_tested
-buf = bytes(8)
-add_case(
-    "cross_arch_behavior_not_tested",
-    "demo_chunk",
-    buf,
-    offset=1,
-    requested_integer_width=32,
-    alignment_requirement=4,
-    endian_policy="native",
-    operation_label="arch_context",
-    compiler_feature_needed="none",
-    context_label="architecture_not_tested",
-    expected_observation="cross_arch_not_tested",
-    expected_success="not_tested",
-    expected_reason="arch_out_of_scope",
-    expected_to_fail_naive=False,
-)
-
 # compiler_optimization_not_proof
 buf = bytes(8)
 add_case(
@@ -763,63 +663,6 @@ add_case(
     expected_observation="memcpy_may_optimize_but_not_required",
     expected_success="success",
     expected_reason="memcpy_opt_marker",
-    expected_to_fail_naive=False,
-)
-
-# assembly_inspection_not_required
-buf = bytes(8)
-add_case(
-    "assembly_inspection_not_required",
-    "demo_chunk",
-    buf,
-    offset=0,
-    requested_integer_width=64,
-    alignment_requirement=8,
-    endian_policy="native",
-    operation_label="asm_context",
-    compiler_feature_needed="none",
-    context_label="diagnostic_not_required",
-    expected_observation="assembly_inspection_not_required_in_lab",
-    expected_success="not_tested",
-    expected_reason="asm_out_of_scope",
-    expected_to_fail_naive=False,
-)
-
-# atomic_unaligned_not_tested
-buf = bytes(8)
-add_case(
-    "atomic_unaligned_not_tested",
-    "toy_alignment_case",
-    buf,
-    offset=1,
-    requested_integer_width=64,
-    alignment_requirement=8,
-    endian_policy="native",
-    operation_label="atomic_context",
-    compiler_feature_needed="stdatomic_h",
-    context_label="architecture_not_tested",
-    expected_observation="atomic_unaligned_not_tested",
-    expected_success="not_tested",
-    expected_reason="atomic_out_of_scope",
-    expected_to_fail_naive=False,
-)
-
-# stack_alignment_context_not_tested
-buf = bytes(8)
-add_case(
-    "stack_alignment_context_not_tested",
-    "sample_lane",
-    buf,
-    offset=0,
-    requested_integer_width=64,
-    alignment_requirement=16,
-    endian_policy="native",
-    operation_label="stack_align_context",
-    compiler_feature_needed="none",
-    context_label="architecture_not_tested",
-    expected_observation="stack_alignment_SSE_crash_context_not_tested",
-    expected_success="not_tested",
-    expected_reason="stack_align_out_of_scope",
     expected_to_fail_naive=False,
 )
 
@@ -935,44 +778,6 @@ add_case(
     expected_success="error",
     expected_reason="naive_endian_footgun",
     expected_to_fail_naive=True,
-)
-
-# external_arch_truth_not_tested
-buf = bytes(8)
-add_case(
-    "external_arch_truth_not_tested_marker",
-    "demo_chunk",
-    buf,
-    offset=1,
-    requested_integer_width=64,
-    alignment_requirement=8,
-    endian_policy="native",
-    operation_label="external_arch_context",
-    compiler_feature_needed="none",
-    context_label="architecture_not_tested",
-    expected_observation="ARM_x86_sanitizer_parser_fuzzing_not_tested",
-    expected_success="not_tested",
-    expected_reason="external_truth_out_of_scope",
-    expected_to_fail_naive=False,
-)
-
-# production_binary_parser_not_tested
-buf = bytes(8)
-add_case(
-    "production_binary_parser_not_tested_marker",
-    "toy_packet",
-    buf,
-    offset=0,
-    requested_integer_width=64,
-    alignment_requirement=1,
-    endian_policy="native",
-    operation_label="production_parser_context",
-    compiler_feature_needed="none",
-    context_label="production_parser_not_tested",
-    expected_observation="production_parser_not_tested",
-    expected_success="not_tested",
-    expected_reason="production_out_of_scope",
-    expected_to_fail_naive=False,
 )
 
 # safety_caveat

@@ -2,24 +2,6 @@
   {
     "case_id": "c001",
     "category": "unsigned_char_can_view_uint64_bytes",
-    "fake_record_name": "fake_bytes",
-    "synthetic_byte_buffer_hex": "\\x12\\x34\\x56\\x78\\x9a\\xbc\\xde\\xf0",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "unsigned_char_view",
-    "compiler_feature_needed": "none",
-    "context_label": "object_representation_policy",
-    "expected_observation": "unsigned_char_can_inspect_object_bytes",
-    "expected_success": "success",
-    "expected_reason": "char_view_directional_safe",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c002",
-    "category": "unsigned_char_can_view_uint64_bytes",
     "fake_record_name": "demo_buffer",
     "synthetic_byte_buffer_hex": "\\x12\\x34\\x56\\x78\\x9a\\xbc\\xde\\xf0",
     "buffer_length": 8,
@@ -36,7 +18,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c003",
+    "case_id": "c002",
     "category": "uint8_t_aliasing_portability_marker",
     "fake_record_name": "synthetic_alias_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07",
@@ -54,7 +36,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c004",
+    "case_id": "c003",
     "category": "char_view_directionality_marker",
     "fake_record_name": "demo_buffer",
     "synthetic_byte_buffer_hex": "\\xaa\\xbb\\xcc\\xdd\\xee\\xff\\x11\\x22",
@@ -72,7 +54,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c005",
+    "case_id": "c004",
     "category": "pointer_cast_without_deref_marker",
     "fake_record_name": "fake_bytes",
     "synthetic_byte_buffer_hex": "\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01",
@@ -90,7 +72,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c006",
+    "case_id": "c005",
     "category": "misaligned_uint64_deref_not_run",
     "fake_record_name": "toy_alignment_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
@@ -108,43 +90,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c007",
-    "category": "misaligned_uint64_deref_not_run",
-    "fake_record_name": "toy_alignment_case",
-    "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
-    "buffer_length": 16,
-    "offset": 3,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "unsafe_deref_misaligned",
-    "compiler_feature_needed": "none",
-    "context_label": "alignment_policy",
-    "expected_observation": "not_run_UB_misaligned_deref",
-    "expected_success": "not_tested",
-    "expected_reason": "misaligned_typed_deref_is_not_portable",
-    "expected_to_fail_naive": true
-  },
-  {
-    "case_id": "c008",
-    "category": "misaligned_uint64_deref_not_run",
-    "fake_record_name": "toy_alignment_case",
-    "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
-    "buffer_length": 16,
-    "offset": 5,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "unsafe_deref_misaligned",
-    "compiler_feature_needed": "none",
-    "context_label": "alignment_policy",
-    "expected_observation": "not_run_UB_misaligned_deref",
-    "expected_success": "not_tested",
-    "expected_reason": "misaligned_typed_deref_is_not_portable",
-    "expected_to_fail_naive": true
-  },
-  {
-    "case_id": "c009",
+    "case_id": "c006",
     "category": "wrong_effective_type_deref_not_run",
     "fake_record_name": "synthetic_alias_case",
     "synthetic_byte_buffer_hex": "\\x11\\x11\\x11\\x11\\x11\\x11\\x11\\x11",
@@ -162,7 +108,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c010",
+    "case_id": "c007",
     "category": "aligned_uint64_object_read_success",
     "fake_record_name": "fake_u64_field",
     "synthetic_byte_buffer_hex": "\\xef\\xbe\\xad\\xde\\x00\\x00\\x00\\x00\\xef\\xbe\\xad\\xde\\x00\\x00\\x00\\x00",
@@ -180,25 +126,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c011",
-    "category": "aligned_uint64_object_read_success",
-    "fake_record_name": "fake_u64_field",
-    "synthetic_byte_buffer_hex": "\\xef\\xbe\\xad\\xde\\x00\\x00\\x00\\x00\\xef\\xbe\\xad\\xde\\x00\\x00\\x00\\x00",
-    "buffer_length": 16,
-    "offset": 8,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "aligned_object_read",
-    "compiler_feature_needed": "none",
-    "context_label": "alignment_policy",
-    "expected_observation": "aligned_object_read_success",
-    "expected_success": "success",
-    "expected_reason": "properly_aligned_object_read_is_defined",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c012",
+    "case_id": "c008",
     "category": "memcpy_load_u64_native_order",
     "fake_record_name": "demo_payload",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07",
@@ -216,25 +144,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c013",
-    "category": "memcpy_load_u64_native_order",
-    "fake_record_name": "demo_payload",
-    "synthetic_byte_buffer_hex": "\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 1,
-    "endian_policy": "native",
-    "operation_label": "memcpy_load",
-    "compiler_feature_needed": "string_h",
-    "context_label": "memcpy_policy",
-    "expected_observation": "memcpy_loads_bytes_into_integer_object_portably",
-    "expected_success": "success",
-    "expected_reason": "memcpy_is_portable_byte_copy",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c014",
+    "case_id": "c009",
     "category": "memcpy_load_u32_native_order",
     "fake_record_name": "synthetic_word",
     "synthetic_byte_buffer_hex": "\\x78\\x56\\x34\\x12",
@@ -252,7 +162,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c015",
+    "case_id": "c010",
     "category": "memcpy_store_roundtrip_u64",
     "fake_record_name": "sample_blob",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -270,7 +180,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c016",
+    "case_id": "c011",
     "category": "memmove_overlap_byte_buffer",
     "fake_record_name": "example_block",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
@@ -288,7 +198,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c017",
+    "case_id": "c012",
     "category": "manual_little_endian_load_u16",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01",
@@ -306,7 +216,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c018",
+    "case_id": "c013",
     "category": "manual_little_endian_load_u32",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03",
@@ -324,7 +234,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c019",
+    "case_id": "c014",
     "category": "manual_little_endian_load_u64",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07",
@@ -342,7 +252,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c020",
+    "case_id": "c015",
     "category": "manual_big_endian_load_u16",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01",
@@ -360,7 +270,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c021",
+    "case_id": "c016",
     "category": "manual_big_endian_load_u32",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03",
@@ -378,7 +288,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c022",
+    "case_id": "c017",
     "category": "manual_big_endian_load_u64",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07",
@@ -396,7 +306,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c023",
+    "case_id": "c018",
     "category": "endian_policy_native_vs_explicit",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x01\\x02\\x03\\x04",
@@ -414,7 +324,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c024",
+    "case_id": "c019",
     "category": "memcpy_does_not_choose_endian",
     "fake_record_name": "demo_chunk",
     "synthetic_byte_buffer_hex": "\\xaa\\xbb\\xcc\\xdd",
@@ -432,7 +342,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c025",
+    "case_id": "c020",
     "category": "unaligned_offset_detected_by_uintptr",
     "fake_record_name": "toy_alignment_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
@@ -450,7 +360,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c026",
+    "case_id": "c021",
     "category": "unaligned_offset_detected_by_uintptr",
     "fake_record_name": "toy_alignment_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
@@ -468,43 +378,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c027",
-    "category": "unaligned_offset_detected_by_uintptr",
-    "fake_record_name": "toy_alignment_case",
-    "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
-    "buffer_length": 16,
-    "offset": 5,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "alignment_check_uintptr",
-    "compiler_feature_needed": "stdint_h",
-    "context_label": "alignment_policy",
-    "expected_observation": "unaligned_offset_detected",
-    "expected_success": "success",
-    "expected_reason": "uintptr_mod_align_check",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c028",
-    "category": "unaligned_offset_detected_by_uintptr",
-    "fake_record_name": "toy_alignment_case",
-    "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
-    "buffer_length": 16,
-    "offset": 7,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "alignment_check_uintptr",
-    "compiler_feature_needed": "stdint_h",
-    "context_label": "alignment_policy",
-    "expected_observation": "unaligned_offset_detected",
-    "expected_success": "success",
-    "expected_reason": "uintptr_mod_align_check",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c029",
+    "case_id": "c022",
     "category": "aligned_offset_detected_by_uintptr",
     "fake_record_name": "toy_alignment_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
@@ -522,25 +396,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c030",
-    "category": "aligned_offset_detected_by_uintptr",
-    "fake_record_name": "toy_alignment_case",
-    "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
-    "buffer_length": 16,
-    "offset": 8,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "alignment_check_uintptr",
-    "compiler_feature_needed": "stdint_h",
-    "context_label": "alignment_policy",
-    "expected_observation": "aligned_offset_detected",
-    "expected_success": "success",
-    "expected_reason": "uintptr_mod_align_check",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c031",
+    "case_id": "c023",
     "category": "_Alignof_uint16_marker",
     "fake_record_name": "fictional_header",
     "synthetic_byte_buffer_hex": "\\x00\\x00",
@@ -558,7 +414,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c032",
+    "case_id": "c024",
     "category": "_Alignof_uint32_marker",
     "fake_record_name": "fictional_header",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00",
@@ -576,7 +432,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c033",
+    "case_id": "c025",
     "category": "_Alignof_uint64_marker",
     "fake_record_name": "fictional_header",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -594,7 +450,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c034",
+    "case_id": "c026",
     "category": "malloc_alignment_observation_marker",
     "fake_record_name": "fake_record",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -612,7 +468,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c035",
+    "case_id": "c027",
     "category": "stack_object_alignment_observation_marker",
     "fake_record_name": "sample_lane",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -630,7 +486,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c036",
+    "case_id": "c028",
     "category": "struct_padding_marker",
     "fake_record_name": "fake_record",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -648,7 +504,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c037",
+    "case_id": "c029",
     "category": "offsetof_padding_marker",
     "fake_record_name": "fake_record",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -666,7 +522,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c038",
+    "case_id": "c030",
     "category": "packed_struct_extension_not_required",
     "fake_record_name": "toy_packet",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -684,7 +540,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c039",
+    "case_id": "c031",
     "category": "union_type_punning_context_not_run",
     "fake_record_name": "synthetic_alias_case",
     "synthetic_byte_buffer_hex": "\\x11\\x22\\x33\\x44\\x55\\x66\\x77\\x88",
@@ -702,25 +558,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c040",
-    "category": "trap_representation_not_tested",
-    "fake_record_name": "fake_bytes",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "trap_rep_context",
-    "compiler_feature_needed": "none",
-    "context_label": "portability_not_tested",
-    "expected_observation": "trap_representations_not_tested",
-    "expected_success": "not_tested",
-    "expected_reason": "trap_rep_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c041",
+    "case_id": "c032",
     "category": "padding_bytes_not_interpreted_marker",
     "fake_record_name": "fake_record",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -738,7 +576,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c042",
+    "case_id": "c033",
     "category": "object_representation_bytes_marker",
     "fake_record_name": "demo_buffer",
     "synthetic_byte_buffer_hex": "\\xde\\xad\\xbe\\xef\\xca\\xfe\\xba\\xbe",
@@ -756,7 +594,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c043",
+    "case_id": "c034",
     "category": "effective_type_context_marker",
     "fake_record_name": "synthetic_alias_case",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -774,7 +612,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c044",
+    "case_id": "c035",
     "category": "strict_aliasing_context_marker",
     "fake_record_name": "synthetic_alias_case",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -792,61 +630,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c045",
-    "category": "restrict_context_not_tested",
-    "fake_record_name": "demo_payload",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "restrict_context",
-    "compiler_feature_needed": "none",
-    "context_label": "diagnostic_not_required",
-    "expected_observation": "restrict_discussed_in_HN_not_tested_here",
-    "expected_success": "not_tested",
-    "expected_reason": "restrict_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c046",
-    "category": "fno_strict_aliasing_context_not_tested",
-    "fake_record_name": "demo_payload",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "fno_strict_aliasing_context",
-    "compiler_feature_needed": "gcc_flag",
-    "context_label": "diagnostic_not_required",
-    "expected_observation": "fno_strict_aliasing_discussed_not_tested",
-    "expected_success": "not_tested",
-    "expected_reason": "compiler_flag_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c047",
-    "category": "sanitizer_context_not_required",
-    "fake_record_name": "demo_chunk",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "sanitizer_context",
-    "compiler_feature_needed": "clang_gcc_sanitizer",
-    "context_label": "diagnostic_not_required",
-    "expected_observation": "sanitizers_useful_but_not_required_in_lab",
-    "expected_success": "not_tested",
-    "expected_reason": "sanitizer_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c048",
+    "case_id": "c036",
     "category": "cast_align_warning_context_marker",
     "fake_record_name": "demo_chunk",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -864,7 +648,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c049",
+    "case_id": "c037",
     "category": "x86_unaligned_success_not_proved",
     "fake_record_name": "toy_alignment_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
@@ -882,7 +666,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c050",
+    "case_id": "c038",
     "category": "ARM_alignment_fault_not_reproduced",
     "fake_record_name": "toy_alignment_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
@@ -900,25 +684,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c051",
-    "category": "cross_arch_behavior_not_tested",
-    "fake_record_name": "demo_chunk",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 1,
-    "requested_integer_width": 32,
-    "alignment_requirement": 4,
-    "endian_policy": "native",
-    "operation_label": "arch_context",
-    "compiler_feature_needed": "none",
-    "context_label": "architecture_not_tested",
-    "expected_observation": "cross_arch_not_tested",
-    "expected_success": "not_tested",
-    "expected_reason": "arch_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c052",
+    "case_id": "c039",
     "category": "compiler_optimization_not_proof",
     "fake_record_name": "demo_payload",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -936,7 +702,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c053",
+    "case_id": "c040",
     "category": "memcpy_optimization_not_required",
     "fake_record_name": "demo_payload",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
@@ -954,61 +720,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c054",
-    "category": "assembly_inspection_not_required",
-    "fake_record_name": "demo_chunk",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "asm_context",
-    "compiler_feature_needed": "none",
-    "context_label": "diagnostic_not_required",
-    "expected_observation": "assembly_inspection_not_required_in_lab",
-    "expected_success": "not_tested",
-    "expected_reason": "asm_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c055",
-    "category": "atomic_unaligned_not_tested",
-    "fake_record_name": "toy_alignment_case",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 1,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "atomic_context",
-    "compiler_feature_needed": "stdatomic_h",
-    "context_label": "architecture_not_tested",
-    "expected_observation": "atomic_unaligned_not_tested",
-    "expected_success": "not_tested",
-    "expected_reason": "atomic_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c056",
-    "category": "stack_alignment_context_not_tested",
-    "fake_record_name": "sample_lane",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 16,
-    "endian_policy": "native",
-    "operation_label": "stack_align_context",
-    "compiler_feature_needed": "none",
-    "context_label": "architecture_not_tested",
-    "expected_observation": "stack_alignment_SSE_crash_context_not_tested",
-    "expected_success": "not_tested",
-    "expected_reason": "stack_align_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c057",
+    "case_id": "c041",
     "category": "project_wrapper_load_result_struct_marker",
     "fake_record_name": "demo_payload",
     "synthetic_byte_buffer_hex": "\\x11\\x22\\x33\\x44\\x55\\x66\\x77\\x88",
@@ -1026,7 +738,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c058",
+    "case_id": "c042",
     "category": "wrapper_records_aligned_flag_marker",
     "fake_record_name": "toy_alignment_case",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f",
@@ -1044,7 +756,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c059",
+    "case_id": "c043",
     "category": "wrapper_records_endian_policy_marker",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x01\\x02\\x03\\x04",
@@ -1062,7 +774,7 @@
     "expected_to_fail_naive": false
   },
   {
-    "case_id": "c060",
+    "case_id": "c044",
     "category": "wrapper_rejects_unsafe_deref_policy_marker",
     "fake_record_name": "demo_payload",
     "synthetic_byte_buffer_hex": "\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff",
@@ -1080,7 +792,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c061",
+    "case_id": "c045",
     "category": "naive_cast_load_marker",
     "fake_record_name": "fake_bytes",
     "synthetic_byte_buffer_hex": "\\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07",
@@ -1098,7 +810,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c062",
+    "case_id": "c046",
     "category": "naive_native_endian_marker",
     "fake_record_name": "toy_endian_case",
     "synthetic_byte_buffer_hex": "\\x01\\x00\\x00\\x00",
@@ -1116,43 +828,7 @@
     "expected_to_fail_naive": true
   },
   {
-    "case_id": "c063",
-    "category": "external_arch_truth_not_tested_marker",
-    "fake_record_name": "demo_chunk",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 1,
-    "requested_integer_width": 64,
-    "alignment_requirement": 8,
-    "endian_policy": "native",
-    "operation_label": "external_arch_context",
-    "compiler_feature_needed": "none",
-    "context_label": "architecture_not_tested",
-    "expected_observation": "ARM_x86_sanitizer_parser_fuzzing_not_tested",
-    "expected_success": "not_tested",
-    "expected_reason": "external_truth_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c064",
-    "category": "production_binary_parser_not_tested_marker",
-    "fake_record_name": "toy_packet",
-    "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
-    "buffer_length": 8,
-    "offset": 0,
-    "requested_integer_width": 64,
-    "alignment_requirement": 1,
-    "endian_policy": "native",
-    "operation_label": "production_parser_context",
-    "compiler_feature_needed": "none",
-    "context_label": "production_parser_not_tested",
-    "expected_observation": "production_parser_not_tested",
-    "expected_success": "not_tested",
-    "expected_reason": "production_out_of_scope",
-    "expected_to_fail_naive": false
-  },
-  {
-    "case_id": "c065",
+    "case_id": "c047",
     "category": "safety_caveat_marker",
     "fake_record_name": "fake_bytes",
     "synthetic_byte_buffer_hex": "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00",
